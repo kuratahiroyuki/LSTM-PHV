@@ -89,8 +89,8 @@ other options)
 |-thr (--threshold)|Threshold to determined whether interact or not|not necessary|0.5|
 |-k_mer (--k_mer)|Size of k in k_mer|not necessary|4|
 
-(Results)
-Text and model files will be output to the specified directory.
+(Results)  
+Text and model files will be output to the specified directory.  
 File name: model/deep_model and deep_HV_result.txt
 |Filename|contents|
 |:----:|:----:|
