@@ -2,8 +2,8 @@
 This package is used for protein-protein interaction (PPI) prediction
 
 # Features
-・LSTM-PHV predicts PPI by amino acid sequences alone.
-・Attention weights could be useful to find binding interfaces. 
+・LSTM-PHV predicts PPI by amino acid sequences alone.  
+・Attention weights could be useful to find binding interfaces.   
 
 # Environment
     python   : 3.8.0
@@ -11,10 +11,10 @@ This package is used for protein-protein interaction (PPI) prediction
 ※We recommentd to create virtual environment by using anaconda.
 
 # Processing
- This CLI system is used for three processing as follows.
- ・Training of a word2vec embedding model to encode amino acid sequences
- ・Training of LSTM-PHV model for PPI prediction.
- ・PPI prediction.
+ This CLI system is used for three processing as follows.  
+ ・Training of a word2vec embedding model to encode amino acid sequences.  
+ ・Training of LSTM-PHV model for PPI prediction.  
+ ・PPI prediction.  
 
 # preparation and installation
 ## 0. Preparation of a virtual environment (not necessary)
@@ -29,15 +29,15 @@ This package is used for protein-protein interaction (PPI) prediction
     $ conda activate lstm_phv_network
     
 ## 1. Installing the LSTM-PHV package
-Execute the following command in the directory where the package is located.
-$ pip install ./LSTM-PHV/dist/LSTM-PHV-0.0.1.tar.gz
+Execute the following command in the directory where the package is located.  
+$ pip install ./LSTM-PHV/dist/LSTM-PHV-0.0.1.tar.gz  
 
 ## 2. Training of a word2vec embedding model to encode amino acid sequences
-A word2vec model can be trained by following command.
-$ lstmphv train_w2v -i [Training data file path (fasta format)] -o [output dir path]
+A word2vec model can be trained by following command.  
+$ lstmphv train_w2v -i [Training data file path (fasta format)] -o [output dir path]  
 
-ex)
-$ lstmphv train_w2v -i ~/LSTM-PHV/sample_data/w2v_sample_data.fa -o ~/LSTM-PHV/w2v_model
+ex)  
+$ lstmphv train_w2v -i ~/LSTM-PHV/sample_data/w2v_sample_data.fa -o ~/LSTM-PHV/w2v_model  
 
 other options)
 |option|explanation|necessary or not|default value|
@@ -49,9 +49,9 @@ other options)
 |-w_s (--window_size)|Window size|not necessary|3|
 |-iter (--iteration)|Iteration of training|not necessary|1000|
 
-(Results)
-Model files will be output to the specified directory.
-File name: AA_model.pt, AA_model.pt.trainables.syn1neg.npy, AA_model.pt.wv.vectors.npy
+(Results)  
+Model files will be output to the specified directory.  
+File name: AA_model.pt, AA_model.pt.trainables.syn1neg.npy, AA_model.pt.wv.vectors.npy  
 
 |Filename|contents|
 |:----:|:----:|
@@ -60,11 +60,11 @@ File name: AA_model.pt, AA_model.pt.trainables.syn1neg.npy, AA_model.pt.wv.vecto
 |AA_model.pt.wv.vectors.npy|word2vec model file (depending on the model size)|
 
 ## 3. Training of LSTM-PHV model for PPI prediction
-LSTM-PHV model for PPI prediction can be trained by following command (Promote the use of GPU-enabled environments).
-$ lstmphv train_deep -t [Training data file path (csv format)] -v [Training data file path (csv format)] -w [word2vec model file path] -o [output dir path]
+LSTM-PHV model for PPI prediction can be trained by following command (Promote the use of GPU-enabled environments).  
+$ lstmphv train_deep -t [Training data file path (csv format)] -v [Training data file path (csv format)] -w [word2vec model file path] -o [output dir path]  
 
-ex)
-$ lstmphv train_deep -t ~/LSTM-PHV/sample_data/sample_training_data.csv -v ~/LSTM-PHV/sample_data/sample_validation_data.csv -w ~/LSTM-PHV/w2v_model/AA_model.pt -o ~/LSTM-PHV/deep_model
+ex)  
+$ lstmphv train_deep -t ~/LSTM-PHV/sample_data/sample_training_data.csv -v ~/LSTM-PHV/sample_data/sample_validation_data.csv -w ~/LSTM-PHV/w2v_model/AA_model.pt -o ~/LSTM-PHV/deep_model  
 
 Note that csv files need to contein the following contents (Check the sample data at /LSTM-PHV/sample_data)
 First column:human protein IDs
@@ -98,11 +98,11 @@ File name: model/deep_model and deep_HV_result.txt
 |deep_HV_result.txt|Documenting the learning process|
 
 ## 4. PPI prediction
-PPI prediction is executed by following command (Promote the use of GPU-enabled environments).
-$ lstmphv predict -i [data file path (csv format)] -o [output dir path] -w [word2vec model file path] -d [deep learning model file path]
+PPI prediction is executed by following command (Promote the use of GPU-enabled environments).  
+$ lstmphv predict -i [data file path (csv format)] -o [output dir path] -w [word2vec model file path] -d [deep learning model file path]  
 
-ex)
-$ lstmphv predict -i ~/LSTM-PHV/sample_data/sample_test_data.csv -o ~/LSTM-PHV/results -w ~/LSTM-PHV/w2v_model/AA_model.pt -d ~/LSTM-PHV/deep_model/deep_model
+ex)  
+$ lstmphv predict -i ~/LSTM-PHV/sample_data/sample_test_data.csv -o ~/LSTM-PHV/results -w ~/LSTM-PHV/w2v_model/AA_model.pt -d ~/LSTM-PHV/deep_model/deep_model  
 
 other options)
 |option|explanation|necessary or not|default value|
@@ -115,15 +115,15 @@ other options)
 |-batch (--batch_size)|Batch size|not necessary|1024|
 |-k_mer (--k_mer)|Size of k in k_mer|not necessary|4|
 
-Note that csv files need to contein the following contents (Check the sample data at /LSTM-PHV/sample_data)
-First column:human protein IDs
-Second column:viral protein IDs
-Third column:human protein sequences
-Forth column:viral protein sequences
+Note that csv files need to contein the following contents (Check the sample data at /LSTM-PHV/sample_data)  
+First column:human protein IDs  
+Second column:viral protein IDs  
+Third column:human protein sequences  
+Forth column:viral protein sequences  
 
-(Results)
-CSV files will be output to the specified directory.
-File name: result.csv, human_transformed_vec.csv, viral_transformed_vec.csv, human_protein_attention_weights.csv, viral_protein_attention_weights.csv
+(Results)  
+CSV files will be output to the specified directory.  
+File name: result.csv, human_transformed_vec.csv, viral_transformed_vec.csv, human_protein_attention_weights.csv, viral_protein_attention_weights.csv  
 
 |Filename|contents|
 |:----:|:----:|
